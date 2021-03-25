@@ -1,0 +1,13 @@
+include ':app'
+include ':avenginekit'
+include ':client'
+
+// include ':push'
+// include ':emojilibrary'
+// include ':imagepicker'
+// include ':uikit'
+
+include ':mars-core-release'
+include ':uniplugin_wildfire'
+include ':uniplugin-module'
+

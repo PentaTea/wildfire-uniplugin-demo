@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pentatea.uniplugin">
+<application>
+<!--<activity android:name="com.pentatea.uniplugin.WiiActivity"
+    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"></activity>-->
+</application>
+</manifest>

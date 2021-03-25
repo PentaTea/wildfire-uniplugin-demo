@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+    }
+
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        applicationId "com.pentatea.wildfiredemo"
+        minSdkVersion 21
+        targetSdkVersion 28 //建议此属性值设为21 io.dcloud.PandoraEntry 作为apk入口时   必须设置 targetSDKVersion>=21 沉浸式才生效
+
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        ndk {
+            // abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64', 'x86'
+            abiFilters 'armeabi-v7a'
+        }
+
+        manifestPlaceholders = [
+            "plus.unipush.appid" : "",
+            "plus.unipush.appkey" : "",
+            "plus.unipush.appsecret": "",
+            "apk.applicationId":"com.pentatea.wildfiredemo"
+        ]
+    }
+    buildTypes {
+        release {
+            zipAlignEnabled false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            zipAlignEnabled false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //使用uniapp时，需复制下面代码
+    /*代码开始*/
+    aaptOptions {
+        additionalParameters '--auto-add-overlay'
+        //noCompress 'foo', 'bar'
+        ignoreAssetsPattern "!.svn:!.git:.*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~"
+    }
+    /*代码结束*/
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+repositories {
+    flatDir {
+        // 父项目库
+        dirs 'libs'
+        // 子模块库
+        // dirs '../uniplugin_wiiauth/libs'
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+
+    implementation "com.android.support:support-v4:28.0.0"
+    implementation "com.android.support:appcompat-v7:28.0.0"
+    // implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+
+    /*uniapp所需库-----------------------开始*/
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.facebook.fresco:fresco:1.13.0'
+    implementation "com.facebook.fresco:animated-gif:1.13.0"
+    /*uniapp所需库-----------------------结束*/
+    // 基座需要，必须添加
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.alibaba:fastjson:1.1.46.android'
+
+    // 添加uni-app插件
+    // implementation project(':uniplugin_wiiauth')
+    implementation  project(':uniplugin_wildfire')
+}

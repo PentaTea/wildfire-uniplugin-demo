@@ -1,0 +1,14 @@
+{
+  "nativePlugins": [
+    {
+      "plugins": [
+        {
+          "type": "module",
+          "name": "PentaTeaWildfire",
+          "class": "com.pentatea.uniplugin.WildfireModule"
+        }
+      ],
+      "hooksClass": "com.pentatea.uniplugin.WildfireUniAppHookProxy"
+    }
+  ]
+}
