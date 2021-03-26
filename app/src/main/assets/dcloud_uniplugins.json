@@ -4,7 +4,7 @@
       "plugins": [
         {
           "type": "module",
-          "name": "PentaTeaWildfire",
+          "name": "PentaTea-Wildfire",
           "class": "com.pentatea.uniplugin.WildfireModule"
         }
       ],

@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import io.dcloud.feature.uniapp.annotation.UniJSMethod;
+import io.dcloud.feature.uniapp.bridge.UniJSCallback;
 import io.dcloud.feature.uniapp.common.UniModule;
 
 /**
@@ -46,28 +47,30 @@ public class WildfireModule extends UniModule {
         JSONObject info = new JSONObject();
         ChatManagerHolder.mUniSDKInstance = mUniSDKInstance;
 
-        while (ChatManagerHolder.qGlobalEvent.peek() != null){
+        while (ChatManagerHolder.qGlobalEvent.peek() != null) {
             ArrayList e = ChatManagerHolder.qGlobalEvent.poll();
-            mUniSDKInstance.fireGlobalEventCallback((String)e.get(0),(JSONObject)e.get(1));
+            mUniSDKInstance.fireGlobalEventCallback((String) e.get(0), (JSONObject) e.get(1));
         }
 
         if (mUniSDKInstance.getContext() instanceof Activity) {
+            Log.i(TAG, "前端连接成功");
             info.put("clientId", ChatManagerHolder.gChatManager.getClientId());
             /**
              * 平台类型iOS 1, Android 2, Windows 3, OSX 4, WEB 5, 小程序 6，linux 7
              */
             info.put("platform", 2);
+        } else {
+            Log.e(TAG, "未能获得有效的Context");
         }
-        Log.i(TAG, "前端连接成功");
+
         return info;
     }
 
 
     @UniJSMethod(uiThread = false)
-    public void connectImServer(JSONObject jsonObject) {
+    public void connect(JSONObject jsonObject) {
         if (mUniSDKInstance.getContext() instanceof Activity) {
             // 通讯连接
-            Log.i(TAG, "连接状态: " + String.valueOf(ChatManagerHolder.gChatManager.getConnectionStatus()));
             String userId = jsonObject.getString("userId");
             String token = jsonObject.getString("token");
             if (null == userId || null == token) {
@@ -75,7 +78,6 @@ public class WildfireModule extends UniModule {
                 return;
             }
 
-            Log.i(TAG, "cid: " + ChatManagerHolder.gChatManager.getClientId());
             ChatManagerHolder.gChatManager.connect(userId, token);
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -88,9 +90,5 @@ public class WildfireModule extends UniModule {
             /*ChatManagerHolder.gChatManager
                     .setDeviceToken(token, PushService.getPushServiceType().ordinal());*/
         }
-    }
-
-    public void fireGlobalEvent(String str, JSONObject object) {
-        mUniSDKInstance.fireGlobalEventCallback(str, object);
     }
 }
