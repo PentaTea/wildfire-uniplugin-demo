@@ -66,10 +66,10 @@ public class WildfireUniAppHookProxy implements UniAppHookProxy {
             e.printStackTrace();
         }
         if (IM_SERVER_HOST == null) {
-            Log.e(TAG, "必须填写 IM_SERVER_HOST");
-            Toast.makeText(application, IM_SERVER_HOST + "缺少IM_SERVER_HOST,应用即将关闭...", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "必须填写 IM_SERVER_HOST,请在app/src/main/AndroidManifest.xml中配置");
+            Toast.makeText(application, IM_SERVER_HOST + "缺少IM_SERVER_HOST,请在app/src/main/AndroidManifest.xml中配置,应用即将关闭...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(() -> {
-                throw new IllegalArgumentException("缺少IM_SERVER_HOST,应用即将关闭...\n");
+                throw new IllegalArgumentException("缺少IM_SERVER_HOST,请在app/src/main/AndroidManifest.xml中配置,应用即将关闭...\n");
             }, 5 * 1000);
         }
 

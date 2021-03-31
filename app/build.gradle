@@ -62,7 +62,7 @@ repositories {
         // 父项目库
         dirs 'libs'
         // 子模块库
-        // dirs '../uniplugin_wiiauth/libs'
+        // dirs '../uniplugin_wildfire/libs'
     }
 }
 dependencies {
@@ -83,6 +83,5 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.46.android'
 
     // 添加uni-app插件
-    // implementation project(':uniplugin_wiiauth')
     implementation  project(':uniplugin_wildfire')
 }

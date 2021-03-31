@@ -43,6 +43,8 @@
         android:largeHeap="true"
         android:supportsRtl="true">
 
+        <!-- <meta-data android:name="IM_SERVER_HOST" android:value="服务器地址"></meta-data> -->
+
         <!-- 应用入口 -->
         <activity
             android:name="io.dcloud.PandoraEntry"
