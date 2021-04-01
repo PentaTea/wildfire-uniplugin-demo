@@ -47,6 +47,18 @@ import stringifyObject from "common/stringify-object";
 
 var wildfire = uni.requireNativePlugin("PentaTea-Wildfire");
 
+var ConnectionStatus = {
+  "-6": " SecretKey 不匹配",
+  "-5": " 令牌不正确",
+  "-4": " 服务器关闭",
+  "-3": " 连接被拒绝",
+  "-2": " 退出登录",
+  "-1": " 未连接",
+  0: "连接中",
+  1: "连接成功",
+  2: "连接状态接收中",
+};
+
 export default {
   data() {
     return {
@@ -60,17 +72,16 @@ export default {
     };
   },
   mounted() {
-    // //#ifndef APP-PLUS
-    // this.err = "请​在​APP​端​测​试​哦";
-    // //#endif
-    //#ifdef APP-PLUS
+    //#ifndef APP-PLUS
+    this.err = "请​在​APP​端​测​试​哦";
+    //#endif
 
+    //#ifdef APP-PLUS
     plus.globalEvent.addEventListener("wildfire", (e) => {
+      console.log(e);
       this.log = [this.interpreter(e), ...this.log];
-      //   this.scrollToBottom();
     });
     this.log = [wildfire.init(), ...this.log];
-
     //#endif
   },
   methods: {
@@ -86,8 +97,10 @@ export default {
     },
     interpreter(e) {
       //做一些操作,拦截事件等等
-      //建议使用ts写清楚type,使用中间件模式做拦截
-      // if(e.data[0])
+      //开发时建议使用ts写清楚type,使用中间件模式做拦截
+      e.tags = [];
+      if (e.data[0] === "onConnectionStatusChange")
+        e.tags.push(ConnectionStatus[e.data[1]]);
       return e;
     },
     time(timestamp) {
