@@ -1,0 +1,37 @@
+{
+    "name": "野火imSDK",
+    "id": "PentaTea-Wildfire",
+    "version": "0.1.0",
+    "description": "野火im",
+    "_dp_type": "nativeplugin",
+    "_dp_nativeplugin": {
+        "android": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "PentaTea-Wildfire",
+                    "class": "com.pentatea.uniplugin.WildfireModule"
+                }
+            ],
+            "hooksClass": "com.pentatea.uniplugin.WildfireUniAppHookProxy",
+            "integrateType": "aar",
+            "parameters": {
+                "IM服务地址": {
+                    "des": "可以是IP和域名，没有http开头，也不用配置端口，局域网需要填写内网地址，不可配置为127.0.0.1或192.168.0.1，如果是域名的话只支持一级域名或www,im,imtest,imdev的二级域名，其它二级域名不支持",
+                    "key": "IM_SERVER_HOST"
+                }
+            },
+            "dependencies": [
+                "androidx.lifecycle:lifecycle-extensions:2.0.0-beta01",
+                "androidx.core:core-ktx:+",
+                "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0-beta01"
+            ],
+            "minSdkVersion": 21,
+            "compileOptions": {
+                "sourceCompatibility": "1.8",
+                "targetCompatibility": "1.8"
+            },
+            "useAndroidX": true
+        }
+    }
+}
