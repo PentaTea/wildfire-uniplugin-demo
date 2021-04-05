@@ -21,5 +21,11 @@
 
 - 请提交[emoji风格的commit](https://github.com/liuchengxu/git-commit-emoji-cn)
 - 请保持良好的代码习惯与清晰的 commit 注释
-- 请勿将个人信息，如 manifest 中的服务端地址，新申请的 appid, 临时文件等提交上来
+- 请勿将个人信息，如 manifest 中的服务端地址，新申请的 appid, 临时文件等提交上来，可使用`git update-index --skip-worktree`命令忽略这些文件的修改如
+
+  ``` code
+  git update-index --skip-worktree app/src/main/AndroidManifest.xml
+  git update-index --skip-worktree uniapp示例工程/PentaTea-Wildfire-Demo/manifest.json
+  ```
+
 - 请保证每一次 pr 是经过测试可用的
